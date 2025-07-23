@@ -1,4 +1,3 @@
-
 import streamlit as st
 import yfinance as yf
 import pandas as pd
@@ -43,11 +42,16 @@ def score_stock(df):
 
     latest = df.iloc[-1]
     score = 0
-    if latest["MACD"] > latest["Signal"]: score += 1
-    if latest["RSI"] > 55 and latest["RSI"] < 70: score += 1
-    if latest["EMA_10"] > latest["EMA_21"] > latest["EMA_50"]: score += 2
-    if latest["Close"] > df["Close"].rolling(20).mean().iloc[-1]: score += 1
-    if df["Volume"].iloc[-1] > 1.5 * df["Volume"].rolling(20).mean().iloc[-1]: score += 1
+    if latest["MACD"] > latest["Signal"]:
+        score += 1
+    if latest["RSI"] > 55 and latest["RSI"] < 70:
+        score += 1
+    if latest["EMA_10"] > latest["EMA_21"] > latest["EMA_50"]:
+        score += 2
+    if latest["Close"] > df["Close"].rolling(20).mean().iloc[-1]:
+        score += 1
+    if df["Volume"].iloc[-1] > 1.5 * df["Volume"].rolling(20).mean().iloc[-1]:
+        score += 1
 
     return score * 20
 
@@ -68,20 +72,7 @@ else:
             candidates.append({
                 "Ticker": t,
                 "Latest Close": df["Close"].iloc[-1],
-"Predicted Gain Potential": "≥20%",
-                "Confidence Score": score,
-                "Risk": "Low" if score >= 85 else "Medium"
-            })
-
-    if not candidates:
-        st.warning("No high-confidence candidates found at this time.")
-    else:
-        result_df = pd.DataFrame(candidates).sort_values("Confidence Score", ascending=False)
-        st.subheader("📈 Predicted Breakout Candidates (≥20% gain)")
-        st.dataframe(result_df, use_container_width=True)
-        st.download_button("📥 Download Results (CSV)", result_df.to_csv(index=False), "predictions.csv")
-
-            "Predicted Gain Potential": "≥20%",
+                "Predicted Gain Potential": "≥20%",
                 "Confidence Score": score,
                 "Risk": "Low" if score >= 85 else "Medium"
             })
