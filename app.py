@@ -81,7 +81,7 @@ else:
         st.dataframe(result_df, use_container_width=True)
         st.download_button("📥 Download Results (CSV)", result_df.to_csv(index=False), "predictions.csv")
 
- Gain Potential": "≥20%",
+            "Predicted Gain Potential": "≥20%",
                 "Confidence Score": score,
                 "Risk": "Low" if score >= 85 else "Medium"
             })
