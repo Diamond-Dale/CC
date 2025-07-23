@@ -68,7 +68,7 @@ else:
             candidates.append({
                 "Ticker": t,
                 "Latest Close": df["Close"].iloc[-1],
-                "Predicted Gain Potential": "≥20%",
+"Predicted Gain Potential": "≥20%",
                 "Confidence Score": score,
                 "Risk": "Low" if score >= 85 else "Medium"
             })
